@@ -8,7 +8,8 @@ temp=0.0
 
 ##Checking if host is valid or is alive
 ping -q -c 1 $1 >> /dev/null
-if [ "$?" -ne 0 ]
+RETURN=$?
+if [ "$RETURN" -gt 1 ]
 then
 	echo "Host unreachable or doesn't exist!"
 	exit 1
@@ -48,7 +49,7 @@ do
 		fi
 	else
 		### geting and printing the last hop
-		result=`ping -c 1 -t $i $1|grep icmp_seq` >> /dev/null
+		result=`ping -c 1 -t $i $1|grep icmp_seq`
 		echo $result
 	fi
 	### increasing the TTL ping value until reaches the counter.
